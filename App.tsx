@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// Before rendering any navigation stack
+import "react-native-gesture-handler";
+import { enableScreens } from "react-native-screens"; // Import enableScreens
+
+import { StyleSheet } from "react-native";
+import "react-native-gesture-handler";
+import { Provider } from "react-redux";
+import RootNavigator from "./app/navigation/RootNavigator";
+import { store } from "./app/store";
+
+enableScreens(); // Enable the use of screens
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <RootNavigator />
+    </Provider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // flex: 1,
+    backgroundColor: "red",
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });
