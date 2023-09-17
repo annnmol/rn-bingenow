@@ -17,7 +17,10 @@ const defaultConfig = getDefaultConfig(__dirname);
 defaultConfig.resolver.sourceExts.push('cjs');
 
 module.exports = defaultConfig;
-s
+
+
+
+
 yarn add @react-navigation/native @react-navigation/drawer @react-navigation/bottom-tabs @react-navigation/stack 
 
 npx expo install react-native-gesture-handler react-native-reanimated 
