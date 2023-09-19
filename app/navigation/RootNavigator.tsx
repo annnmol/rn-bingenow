@@ -5,17 +5,15 @@ import { StatusBar } from "react-native";
 import useFirebaseAuthService from "../services/firebase/useFirebaseAuthService";
 import { useAppSelector } from "../store";
 import { authUserStore } from "../store/slices/AuthUserSlice";
-import { colors } from "../themes";
-import TabsNavigator from "./TabsNavigator";
+import { theme } from "../themes";
 
+import TabsNavigator from "./TabsNavigator";
 
 // SplashScreen.preventAutoHideAsync();
 
 const RootNavigator = () => {
- 
   const { isAppReady } = useFirebaseAuthService();
-  const {authUser} = useAppSelector(authUserStore)
-
+  const { authUser } = useAppSelector(authUserStore);
 
   // const onLayoutRootView = useCallback(async () => {
   //   // if (isAppReady) {
@@ -26,8 +24,6 @@ const RootNavigator = () => {
   // useLayoutEffect(() => {
   //   onLayoutRootView();
   // }, [authUser]);
-
-
 
   // const [fontsLoaded] = useFonts({
   //   'Poppins-Light': require('../assets/fonts/Poppins-Light.ttf'),
@@ -54,20 +50,20 @@ const RootNavigator = () => {
   // }
 
   if (!isAppReady) {
-     console.log("app not ready getting user")
+    console.log("app not ready getting user");
     return null;
   }
 
-
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor={colors.bgColor}/>
-      <NavigationContainer>
-        <TabsNavigator  />
+      {/* <StatusBar barStyle="light-content" backgroundColor={colors.bgColor} /> */}
+      <StatusBar />
+      <NavigationContainer theme={theme as any}>
+        <TabsNavigator />
         {/* <AuthNavigator /> */}
         {/* {authUser?.email ? <TabsNavigator /> : <AuthNavigator />} */}
         {/* {authUser?.email ? <DrawerNavigator /> : <AuthNavigator />} */}
-      {/* <AppOfflineAlert /> */}
+        {/* <AppOfflineAlert /> */}
       </NavigationContainer>
     </>
   );

@@ -1,7 +1,7 @@
 const COLOR_SCHEME_NUMBER = 6;
 
 const getContrastTextColorRgb = (rbg: string) => {
-  const [r, g, b, a] = rbg.match(/\d+/g).map(Number);
+  const [r, g, b, a] = rbg.match(/\d+/g)?.map(Number) ?? [];
   // Get YIQ ratio
   const yiq = (r * 299 + g * 587 + b * 114) / 1000;
   const color = yiq >= 128 ? "#282828" : "#f1f1f1";
