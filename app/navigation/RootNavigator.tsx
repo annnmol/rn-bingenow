@@ -1,5 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
-
+import * as SplashScreen from "expo-splash-screen";
+// import { useFonts } from "expo-font";
+import * as Font from "expo-font";
 import React from "react";
 import { StatusBar } from "react-native";
 import useFirebaseAuthService from "../services/firebase/useFirebaseAuthService";
@@ -10,6 +12,20 @@ import { theme } from "../themes";
 import TabsNavigator from "./TabsNavigator";
 
 // SplashScreen.preventAutoHideAsync();
+
+// let customFonts = {
+//   Inter: require("../assets/fonts/Inter-Regular.ttf"),
+//   "Inter-Light": require("../assets/fonts/Inter-Light.ttf"),
+// };
+
+// const loadFontsAsync = async () => {
+//   await Font.loadAsync(customFonts);
+//   await SplashScreen.hideAsync();
+// };
+
+// React.useLayoutEffect(() => {
+//   loadFontsAsync();
+// }, []);
 
 const RootNavigator = () => {
   const { isAppReady } = useFirebaseAuthService();
@@ -24,30 +40,6 @@ const RootNavigator = () => {
   // useLayoutEffect(() => {
   //   onLayoutRootView();
   // }, [authUser]);
-
-  // const [fontsLoaded] = useFonts({
-  //   'Poppins-Light': require('../assets/fonts/Poppins-Light.ttf'),
-  //   'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
-  //   'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
-  //   'Poppins-SemiBold': require('../assets/fonts/Poppins-SemiBold.ttf'),
-  // });
-
-  // const onLayoutRootView = useCallback(async () => {
-
-  //   if (fontsLoaded) {
-  //      console.log("fonts loaded")
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [fontsLoaded]);
-
-  // useLayoutEffect(() => {
-  //    onLayoutRootView()
-  // }, [])
-
-  // if (!fontsLoaded) {
-  //    console.log("fonts not found")
-  //   return null;
-  // }
 
   if (!isAppReady) {
     console.log("app not ready getting user");

@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // backgroundColor: "rgba(17, 60, 207, 0.9)",
     // backgroundColor: ColorUtils.mixColors("rgba(17, 60, 207, 1)", "rgba(18, 18, 18, 1)", 2),
-    backgroundColor: theme.colors.primaryScheme?.[6],
+    backgroundColor: theme.colors.primaryScheme?.[9],
 },
   lightBg: {
     gap: 10,
@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
   },
   text2: {
     color: theme.colors.text.medium,
-    // fontSize: 20,
     ...theme.font,
   },
   text3: {

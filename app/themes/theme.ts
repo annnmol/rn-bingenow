@@ -14,6 +14,11 @@ const WHITE_SURFACE = "#f9f9f9";
 const BLACK = "#000000";
 const BLACK_SURFACE = "#121212";
 
+const defaultFont = {
+  // fontFamily: "Inter", // Use your desired font,
+  fontSize: 30,
+};
+
 // // Define your custom theme
 const lightTheme = {
   ...DefaultTheme,
@@ -34,10 +39,7 @@ const lightTheme = {
       light: ColorUtils.hexToRgba(BLACK, 0.4),
     },
   },
-  font: {
-    //   fontFamily: "Inter", // Use your desired font,
-    fontSize: 30,
-  },
+  font: defaultFont,
 };
 
 const darktheme = {
@@ -59,10 +61,7 @@ const darktheme = {
       light: ColorUtils.hexToRgba(WHITE, 0.4),
     },
   },
-  fontFamily: "Inter", // Use your desired font,
-  font: {
-    fontSize: 30,
-  },
+  font: defaultFont,
 };
 
 const theme = DEFAULT_UI_SCHEME === "dark" ? darktheme : lightTheme;
