@@ -2,7 +2,6 @@
 import "react-native-gesture-handler";
 import { enableScreens } from "react-native-screens"; // Import enableScreens
 
-import { StyleSheet } from "react-native";
 import "react-native-gesture-handler";
 import { Provider } from "react-redux";
 import RootNavigator from "./app/navigation/RootNavigator";
@@ -18,11 +17,4 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    backgroundColor: "red",
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  },
-});
+
