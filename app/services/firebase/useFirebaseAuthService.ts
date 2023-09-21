@@ -22,7 +22,7 @@ const useFirebaseAuthService = () => {
   useEffect(() => {
     const unsubscribeFromAuthStateChanged = onAuthStateChanged(
       firebaseAuth,
-      (currentUser: User) => {
+      (currentUser: User | null) => {
         // console.log("currentUser", currentUser);
         dispatch(setAuthUser(currentUser));
         setIsAppReady(true);
@@ -62,7 +62,8 @@ const useFirebaseAuthService = () => {
   };
 
   const updateUserProfile = async (data: UpdateUserProfile) => {
-    const user: User = firebaseAuth.currentUser;
+    const user: User | null = firebaseAuth.currentUser;
+    if(!user) return Promise.reject('No user found');
     return await updateProfile(user, data)
       .then((response) => {
         return Promise.resolve(response);
@@ -73,7 +74,8 @@ const useFirebaseAuthService = () => {
   };
 
   const updateUserEmail = async (newEmail: string) => {
-    const user: User = firebaseAuth.currentUser;
+    const user: User | null = firebaseAuth.currentUser;
+    if(!user) return Promise.reject('No user found');
     return await updateEmail(user, newEmail)
       .then((response) => {
         return Promise.resolve(response);
@@ -83,7 +85,8 @@ const useFirebaseAuthService = () => {
       });
   };
   const updateUserPassword = async (newPass: string) => {
-    const user: User = firebaseAuth.currentUser;
+    const user: User | null = firebaseAuth.currentUser;
+    if(!user) return Promise.reject('No user found');
     return await updatePassword(user, newPass)
       .then((response) => {
         return Promise.resolve(response);

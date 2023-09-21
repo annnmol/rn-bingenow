@@ -3,13 +3,13 @@ import { Auth, debugErrorMap, getAuth, initializeAuth } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-// import {
-//   GoogleAuthProvider,
-//   getReactNativePersistence,
-// } from "firebase/auth/react-native";
-import * as firebaseAuthStar from 'firebase/auth';
-const getReactNativePersistence = (firebaseAuthStar as any).getReactNativePersistence;
-const GoogleAuthProvider = (firebaseAuthStar as any).GoogleAuthProvider;
+import {
+  GoogleAuthProvider,
+  getReactNativePersistence,
+} from "firebase/auth";
+// import * as firebaseAuthStar from 'firebase/auth';
+// const getReactNativePersistence = (firebaseAuthStar as any).getReactNativePersistence;
+// const GoogleAuthProvider = (firebaseAuthStar as any).GoogleAuthProvider;
 
 const firebaseConfig = {
   apiKey: "AIzaSyD3NHvxq-knrpm9159BpEHiLHByw-lWGlw",
