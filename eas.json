@@ -10,7 +10,15 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.production.com",
+        "EXPO_PUBLIC_GITHUB_API_URL": "https://api.github.com",
+        "EXPO_PUBLIC_MOVIE_DB_ACCESS_TOKEN": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiZGM1NDdjOWFmMzQyNTVjYWQ4OWVhMTY4NGI2NDQ5OSIsInN1YiI6IjY0ODcyMDU5OTkyNTljMDExYzQxNTE4YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lkm1oUFDL53-Zg7a9Sb7mUzMq0eNS8hqHad09KbAK8Y",
+        "EXPO_PUBLIC_MOVIE_DB_API_URL": "https://api.themoviedb.org/3",
+        "EXPO_PUBLIC_MOVIE_DB_API_KEY": "bdc547c9af34255cad89ea1684b64499"
+      }
+    }
   },
   "submit": {
     "production": {}
