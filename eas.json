@@ -5,12 +5,18 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+     }
     },
     "preview": {
       "distribution": "internal"
     },
     "production": {
+      "android": {
+        "buildType": "apk"
+     },
       "env": {
         "EXPO_PUBLIC_API_URL": "https://api.production.com",
         "EXPO_PUBLIC_GITHUB_API_URL": "https://api.github.com",
