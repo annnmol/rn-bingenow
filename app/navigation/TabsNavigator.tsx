@@ -1,18 +1,21 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
-// import AppExpoIcons from '../appComponents/icons/AppExpoIcons';
-// import FavoritesScreen from '../screens/Favorites/FavoritesScreen';
-// import HomeScreen from "../screens/Home/HomeScreen";
-// import SearchScreen from '../screens/Search/SearchScreen';
-// import UserAccountScreen from '../screens/UserAccount/UserAccountScreen';
 import { ROUTES_NAMES } from "./Routes";
 import { colors } from "../themes";
-import HomeTabNavigator from "./HomeTabNavigator";
+import HomeNavigator from "./HomeNavigator";
 import { AppExpoIcons } from "../appComponents/icons";
+import SearchScreen from "../screens/search";
+import MyListScreen from "../screens/myList";
+import UserScreen from "../screens/user";
+import { useTheme } from "@react-navigation/native";
+import { AppAvatar } from "../appComponents/images";
 
 const Tab = createBottomTabNavigator();
 
 const TabsNavigator = () => {
+  const theme: any = useTheme();
+  const styles = getDynamicStyles();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -24,9 +27,9 @@ const TabsNavigator = () => {
         },
         headerShown: false,
         tabBarActiveBackgroundColor: "transparent",
-        tabBarActiveTintColor: colors.bgColor,
+        tabBarActiveTintColor: theme.colors.text.main,
         tabBarInactiveBackgroundColor: "transparent",
-        tabBarInactiveTintColor: colors.dark400,
+        tabBarInactiveTintColor: theme.colors.text.light,
         tabBarShowLabel: true,
         tabBarStyle: styles.customTabBarStyle,
         tabBarLabelStyle: styles.customTabBarLabelStyle,
@@ -43,7 +46,7 @@ const TabsNavigator = () => {
       /> */}
       <Tab.Screen
         name={ROUTES_NAMES.HOMESCREEN_NAVIGATOR}
-        component={HomeTabNavigator}
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ focused, size, color }) => (
             <AppExpoIcons
@@ -55,31 +58,71 @@ const TabsNavigator = () => {
           tabBarLabel: "Home",
         }}
       />
-      {/* <Tab.Screen name={ROUTES_NAMES.SEARCH} component={SearchScreen}  options={{
-          tabBarIcon: ({ focused, size, color }) => <AppExpoIcons name={focused ? 'explore' : "explore"} size={20} color={color} />,
-        }}/>
-      <Tab.Screen name={ROUTES_NAMES.FAVORITES} component={FavoritesScreen}  options={{
-          tabBarIcon: ({ focused, size, color }) => <AppExpoIcons name={focused ? 'favorite' : "favorite-outline"} size={20} color={color} />,
-        }}/>
-      <Tab.Screen name={ROUTES_NAMES.ACCOUNT} component={UserAccountScreen}  options={{
-          tabBarIcon: ({ focused, size, color }) => <AppExpoIcons name={focused ? 'person' : "person-outline"} size={20} color={color} />,
-        }}/> */}
+      <Tab.Screen
+        name={ROUTES_NAMES.SEARCH}
+        component={SearchScreen}
+        options={{
+          tabBarIcon: ({ focused, size, color }) => {
+            return (
+              <AppExpoIcons
+                name={focused ? "explore" : "explore"}
+                size={20}
+                color={color}
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name={ROUTES_NAMES.MY_LIST}
+        component={MyListScreen}
+        options={{
+          tabBarIcon: ({ focused, size, color }) => (
+            <AppExpoIcons
+              name={focused ? "favorite" : "favorite-outline"}
+              size={20}
+              color={color}
+            />
+          ),
+          tabBarLabel: "My List",
+        }}
+      />
+      <Tab.Screen
+        name={ROUTES_NAMES.ACCOUNT}
+        component={UserScreen}
+        options={{
+          tabBarIcon: ({ focused, size, color }) => (
+            <AppAvatar
+              source={require("..//assets/avatars/avatar4.webp")}
+              size={20}
+              style={{ borderWidth: focused ? 1 : 0, borderColor: color }}
+            />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
 
 export default TabsNavigator;
 
-const styles = StyleSheet.create({
-  customTabBarStyle: {
-    borderTopWidth: 0,
-    //  backgroundColor:'red',
-    paddingBottom: 4,
-    paddingTop: 4,
-  },
-  customTabBarLabelStyle: {
-    fontSize: 12,
-    fontWeight: "400",
-    letterSpacing: 0.5,
-  },
-});
+const getDynamicStyles = () => {
+  const theme: any = useTheme();
+
+  // console.log("getDynamicStyles", theme.colors);
+
+  return StyleSheet.create({
+    customTabBarStyle: {
+      // borderTopWidth: 0,
+      backgroundColor: theme.colors.background,
+      paddingBottom: 6,
+      paddingTop: 4,
+    },
+
+    customTabBarLabelStyle: {
+      fontSize: 11,
+      fontWeight: "500",
+      letterSpacing: 0.5,
+    },
+  });
+};

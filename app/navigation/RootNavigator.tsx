@@ -1,15 +1,15 @@
-import { NavigationContainer } from "@react-navigation/native";
-import * as SplashScreen from "expo-splash-screen";
-// import { useFonts } from "expo-font";
-import * as Font from "expo-font";
 import React from "react";
-import { StatusBar } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { Appearance } from "react-native";
+import { StatusBar } from "expo-status-bar";
+// import * as SplashScreen from "expo-splash-screen";
+// import { useFonts } from "expo-font";
 import useFirebaseAuthService from "../services/firebase/useFirebaseAuthService";
 import { useAppSelector } from "../store";
 import { authUserStore } from "../store/slices/AuthUserSlice";
-import { theme } from "../themes";
-
+import { getCurrentTheme } from "../themes/theme";
 import TabsNavigator from "./TabsNavigator";
+import AuthNavigator from "./AuthNavigator";
 
 // SplashScreen.preventAutoHideAsync();
 
@@ -30,7 +30,6 @@ import TabsNavigator from "./TabsNavigator";
 const RootNavigator = () => {
   const { isAppReady } = useFirebaseAuthService();
   const { authUser } = useAppSelector(authUserStore);
-
   // const onLayoutRootView = useCallback(async () => {
   //   // if (isAppReady) {
   //     await SplashScreen.hideAsync();
@@ -41,23 +40,41 @@ const RootNavigator = () => {
   //   onLayoutRootView();
   // }, [authUser]);
 
+  const [curTheme, setCurTheme] = React.useState(getCurrentTheme());
+
+  React.useEffect(() => {
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+      const scheme = Appearance.getColorScheme();
+      setCurTheme(getCurrentTheme(scheme));
+    });
+
+    // Cleanup when the component unmounts
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
   if (!isAppReady) {
     console.log("app not ready getting user");
     return null;
   }
 
+  console.log("app ready getting user", authUser?.email)
+
   return (
-    <>
-      {/* <StatusBar barStyle="light-content" backgroundColor={colors.bgColor} /> */}
-      <StatusBar />
-      <NavigationContainer theme={theme as any}>
-        <TabsNavigator />
-        {/* <AuthNavigator /> */}
-        {/* {authUser?.email ? <TabsNavigator /> : <AuthNavigator />} */}
-        {/* {authUser?.email ? <DrawerNavigator /> : <AuthNavigator />} */}
-        {/* <AppOfflineAlert /> */}
-      </NavigationContainer>
-    </>
+    <NavigationContainer theme={curTheme as any}>
+      <StatusBar
+        // style={curTheme?.dark ? "light" : "dark"}
+        style={"auto"}
+        animated
+        networkActivityIndicatorVisible={true}
+      />
+ <AuthNavigator />
+      {/* <TabsNavigator /> */}
+      {/* {authUser?.email ? <TabsNavigator /> : <AuthNavigator />} */}
+      {/* {authUser?.email ? <DrawerNavigator /> : <AuthNavigator />} */}
+      {/* <AppOfflineAlert /> */}
+    </NavigationContainer>
   );
 };
 

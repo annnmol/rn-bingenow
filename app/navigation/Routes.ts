@@ -13,6 +13,7 @@
 export class ROUTES_NAMES {
   public static AUTH_NAVIGATOR = "AuthNavigator";
   //welcome
+  public static SPLASH = "Splash";
   public static WELCOME = "Welcome";
 
   public static LOGIN = "Login";
@@ -32,7 +33,7 @@ export class ROUTES_NAMES {
   public static SEARCH = "Discover";
   public static ADD_ITEM = "AddItem";
   public static ORDERS = "Orders";
-  public static FAVORITES = "Favorites";
+  public static MY_LIST = "mylist";
   public static HELP = "help";
   public static DETAILS = "details";
   public static CAST_DETAILS = "castDetails";

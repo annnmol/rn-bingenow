@@ -1,21 +1,8 @@
-export const getContrastTextColorHex = (hexcolor: string) => {
-  // If a leading # is provided, remove it
-  if (hexcolor.slice(0, 1) === "#") {
-    hexcolor = hexcolor.slice(1);
-  }
-
-  // Convert to RGB value
-  var r = parseInt(hexcolor.substr(0, 2), 16);
-  var g = parseInt(hexcolor.substr(2, 2), 16);
-  var b = parseInt(hexcolor.substr(4, 2), 16);
-
-  // Get YIQ ratio
-  var yiq = (r * 299 + g * 587 + b * 114) / 1000;
-
-  // Check contrast
-  return yiq >= 128 ? "#282828" : "#f1f1f1";
-};
-
+export const getRandomArrayIndex = (array:any[]) => {
+  const min = 0;
+  const max = array?.length - 1;
+  return Math.floor(Math.random() * (max - min + 1)) + min ?? 0;
+}
 export const getVotedMovie = (data: any[]) => {
   if (!data?.length) return;
   // let a= []
@@ -36,8 +23,8 @@ export const simplifyWatchProviders = (data: any) => {
   const children = IN_BUY.concat(IN_RENT);
 
   const unique: any[] = children.filter(
-    (v, i, a) =>
-      a.findIndex((v2) => v2?.provider_name === v?.provider_name) === i
+    (v:any, i:any, a:any) =>
+      a?.findIndex((v2:any) => v2?.provider_name === v?.provider_name) === i
   );
   return unique?.slice(0, 9);
 };
