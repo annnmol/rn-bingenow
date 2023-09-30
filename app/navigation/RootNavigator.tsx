@@ -69,9 +69,9 @@ const RootNavigator = () => {
         animated
         networkActivityIndicatorVisible={true}
       />
- <AuthNavigator />
+ {/* <AuthNavigator /> */}
       {/* <TabsNavigator /> */}
-      {/* {authUser?.email ? <TabsNavigator /> : <AuthNavigator />} */}
+      {authUser?.email ? <TabsNavigator /> : <AuthNavigator />}
       {/* {authUser?.email ? <DrawerNavigator /> : <AuthNavigator />} */}
       {/* <AppOfflineAlert /> */}
     </NavigationContainer>

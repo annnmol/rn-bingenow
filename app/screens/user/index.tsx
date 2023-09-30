@@ -1,18 +1,58 @@
-import { useTheme } from "@react-navigation/native";
+import { NavigationProp, useTheme } from "@react-navigation/native";
 import { ReactNode } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ToastAndroid } from "react-native";
+import {
+  useFirebaseAuthService,
+  useFirebaseDBService,
+} from "../../services/firebase";
+import { useAppSelector } from "../../store";
+import { authUserStore } from "../../store/slices/AuthUserSlice";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { AppText } from "../../appComponents/forms";
+import { AppExpoIcons, AppIconButton } from "../../appComponents/icons";
+import { ROUTES_NAMES } from "../../navigation/Routes";
 
 interface Props {
-  // children: ReactNode;
+  navigation: NavigationProp<any>; // Define the type for navigation
 }
 
-const UserScreen: React.FC<Props> = () => {
+const UserScreen: React.FC<Props> = ({ navigation }) => {
   const styles = getDynamicStyles();
 
+  const { logOutUser, updateUserProfile } = useFirebaseAuthService();
+  const { getFirebase } = useFirebaseDBService();
+
+  const { authUser } = useAppSelector(authUserStore);
+  const handleLogout = () => {
+    logOutUser().finally(() => {
+      ToastAndroid.show("User Logged out", ToastAndroid.SHORT);
+      // navigation.navigate(ROUTES_NAMES.TABS_NAVIGATOR);
+    });
+  };
+  const handleProfileUpdate = () => {
+    updateUserProfile({
+      displayName: "Anmol Tanwar",
+      photoURL: "https://example.com/jane-q-user/profile.jpg",
+    });
+  };
+
   return (
-    <View>
+    <SafeAreaView>
       <Text>UserScreen</Text>
-    </View>
+      <AppText>UserAccount Hello {authUser?.email}</AppText>
+
+      {/* <AppFastImage source={"https://source.unsplash.com/random/?city"} />
+
+       <AppButton variant="text" onPress={() => handleProfileUpdate()}>
+         Update profile name
+       </AppButton> */}
+
+      {/* <UserPictureCard image={{uri:'https://source.unsplash.com/random/?profile'}} title={authUser.displayName} subTitle={authUser.email}/> */}
+
+      <AppIconButton onPress={() => handleLogout()}>
+        <AppExpoIcons name="logout" size={30} />
+      </AppIconButton>
+    </SafeAreaView>
   );
 };
 export default UserScreen;

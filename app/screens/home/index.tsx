@@ -7,13 +7,11 @@ import {
   Text,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { AppFlatList, AppNoData } from "../../appComponents/extras";
-import { AppText } from "../../appComponents/forms";
+import { AppFlatList } from "../../appComponents/extras";
 import { withDelayedComponentLoader } from "../../appComponents/hoc";
 import { ILoaderProps } from "../../appComponents/hoc/withDelayedComponentLoader";
 import { getHomeContent } from "../../appComponents/hooks";
-import { AppAvatar, AppFastImage } from "../../appComponents/images";
+import { AppFastImage } from "../../appComponents/images";
 import { movieImageUrl500 } from "../../services/ApiService";
 import { useAppSelector } from "../../store";
 import { useSavedItemsStore } from "../../store/slices/SavedItemsSlice";
@@ -24,6 +22,7 @@ import { topRatedStore } from "../../store/slices/movies/TopRatedSlice";
 import { trendingAllStore } from "../../store/slices/movies/TrendingAllSlice";
 import { ultimateMoviesStore } from "../../store/slices/movies/UltimateMoviesSlice";
 import { upcomingMoviesStore } from "../../store/slices/movies/UpcomingMoviesSlice";
+import { constants } from "../../themes";
 
 interface Props extends ILoaderProps {
   navigation: NavigationProp<any>; // Define the type for navigation
@@ -48,9 +47,6 @@ const Homescreen: React.FC<Props> = ({ navigation, setShowLoader }) => {
     useAppSelector(popularMoviesStore);
   const { savedItems } = useAppSelector(useSavedItemsStore);
 
-  console.log(
-    "--------------------------------------------------------------------"
-  );
   // console.log("nowPlayingMovies", nowPlayingMovies?.length, nowPlayingMovies?.[0]);
   // console.log("trendingAll", trendingAll?.length);
   // console.log("topRated", topRated?.length);
@@ -75,33 +71,22 @@ const Homescreen: React.FC<Props> = ({ navigation, setShowLoader }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView
-      style={{ flex: 1, backgroundColor: "red" , padding: 10}}
+      contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-      <AppAvatar
-        source={require("../../assets/avatars/avatar4.webp")}
-        size={32}
-      />
-      <AppText variant="H4">Homescreen</AppText>
-      <AppText variant="body3">Homescreen</AppText>
-      <AppText>Homescreen</AppText>
-      <AppNoData />
+    
+    
       {/* <ScrollView contentContainerStyle={styles.container}> */}
         <View style={styles.lightBg}>
           <Text style={styles.text}>Homescreen Main</Text>
           <Text style={styles.text2}>Homescreen Medium</Text>
           <Text style={styles.text3}>Homescreen light</Text>
         </View>
-        <View style={styles.lightBg}>
-          <Text style={styles.text}>Homescreen Main</Text>
-          <Text style={styles.text2}>Homescreen Medium</Text>
-          <Text style={styles.text3}>Homescreen light</Text>
-        </View>
+     
         <AppFlatList
           data={nowPlayingMovies}
           renderItem={renderItem}
@@ -111,7 +96,6 @@ const Homescreen: React.FC<Props> = ({ navigation, setShowLoader }) => {
         />
       {/* </ScrollView> */}
       </ScrollView>
-    </SafeAreaView>
   );
 };
 
@@ -123,18 +107,21 @@ const getDynamicStyles = () => {
     container: {
       flex: 1,
       gap: 10,
-      justifyContent: "center",
-      alignItems: "center",
+      // justifyContent: "center",
+      // alignItems: "center",
+      // backgroundColor: theme.colors.background,
       backgroundColor: theme.colors.background,
+      // paddingHorizontal: constants.spacingLX,
+      // paddingVertical: constants.spacingLX,
+      marginTop: constants.statusBarHeight,
     },
     lightBg: {
       gap: 10,
-      marginTop: 50,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: theme.colors.primaryDarkScheme?.[8],
-      height: 220,
-      width: "100%",
+      backgroundColor: theme.colors.default.surface,
+      flex: 1,
+   
     },
     text: {
       color: theme.colors.text.main,

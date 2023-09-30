@@ -1,12 +1,26 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { NavigationProp, useTheme } from "@react-navigation/native";
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { useForm } from "react-hook-form";
+import { StyleSheet, ToastAndroid, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AppButton } from "../../appComponents/buttons";
-import { AppText } from "../../appComponents/forms";
-import { constants } from "../../themes";
+import {
+  AppForm,
+  AppFormPasswordField,
+  AppFormSubmitButton,
+  AppFormTextField,
+  AppText,
+} from "../../appComponents/forms";
 import { AppExpoIcons } from "../../appComponents/icons";
 import { ROUTES_NAMES } from "../../navigation/Routes";
+import {
+  getRefinedFirebaseAuthErrorMessage,
+  useFirebaseAuthService,
+} from "../../services/firebase";
+import { useAppDispatch } from "../../store";
+import { constants } from "../../themes";
+import { LoginSchema } from "./contants";
 
 interface Props {
   navigation: NavigationProp<any>; // Define the type for navigation
@@ -14,7 +28,7 @@ interface Props {
 
 const EmailScreen: React.FC<Props> = ({ navigation }) => {
   const styles = getDynamicStyles();
-  const theme: any = useTheme();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {}, []);
 
@@ -22,8 +36,77 @@ const EmailScreen: React.FC<Props> = ({ navigation }) => {
     navigation.navigate(ROUTES_NAMES.WELCOME);
   };
 
+  const { logInUser } = useFirebaseAuthService();
+
+  const [userInput, setUserInput] = React.useState({
+    email: "",
+    password: "",
+  });
+
+  const methods = useForm({
+    resolver: yupResolver(LoginSchema),
+    delayError: 300,
+    mode: "onChange",
+    defaultValues: userInput,
+    values: userInput,
+  });
+
+  let {
+    control,
+    setError,
+    handleSubmit,
+    formState: {
+      errors,
+    },
+  } = methods;
+
+  const handleSubmitFn = (data: any) => {
+    console.info({ data, errors });
+
+    logInUser(data.email, data.password)
+      .then((res: any) => {
+        ToastAndroid.show("User Logged In", ToastAndroid.SHORT);
+      })
+      .catch((err: any) => {
+        const message = getRefinedFirebaseAuthErrorMessage(err?.message);
+        if (message?.includes("email") || message?.includes("Email")) {
+          setError("email", { message: message });
+        }
+        ToastAndroid.show(message, ToastAndroid.SHORT);
+      })
+      .finally(() => {
+      });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      <AppForm methods={methods}>
+        <AppFormTextField
+          name="email"
+          control={control}
+          label="Email"
+          keyboardType={"email-address"}
+          caretHidden={false}
+          textContentType="emailAddress"
+          autoComplete={"email"}
+          icon="alternate-email"
+        />
+        <AppFormPasswordField
+          name="password"
+          control={control}
+          label="Password"
+          placeholder={"******"}
+          icon="lock"
+        />
+
+        <AppFormSubmitButton
+          handleSubmit={handleSubmit(handleSubmitFn)}
+          // onPress={handleSubmit(onSubmit)}
+          style={{ marginVertical: 10 }}
+        >
+          Login
+        </AppFormSubmitButton>
+      </AppForm>
       <TouchableOpacity onPress={() => handleBackClick()}>
         <AppExpoIcons name="close" size={32} />
       </TouchableOpacity>
@@ -48,10 +131,10 @@ const EmailScreen: React.FC<Props> = ({ navigation }) => {
           experience. We may also send you information about bingeNow. You have
           the option to change your communication preferences at any time. Your
           data may be used in accordance with our Privacy Policy, which includes
-          sharing it with The Now Family of Companies. By clicking
-          'Agree and Continue,' you are indicating your consent to our
-          Subscriber Agreement. You acknowledge that you have read our Privacy
-          Policy and the Supplemental Privacy Policy for Singapore.
+          sharing it with The Now Family of Companies. By clicking 'Agree and
+          Continue,' you are indicating your consent to our Subscriber
+          Agreement. You acknowledge that you have read our Privacy Policy and
+          the Supplemental Privacy Policy for Singapore.
         </AppText>
         <AppButton onPress={() => {}} textVariant="button1">
           Agree & Continue
@@ -73,9 +156,10 @@ const getDynamicStyles = () => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor:theme.colors.background
+      // justifyContent: "center",
+      // alignItems: "center",
+      backgroundColor: theme.colors.background,
+      paddingHorizontal: constants.spacingLX,
       // backgroundColor:theme.colors.default.surfaceContainer
       //
     },
@@ -85,7 +169,7 @@ const getDynamicStyles = () => {
       justifyContent: "center",
       alignItems: "center",
       borderRadius: 8,
-      backgroundColor:theme.colors.default.surfaceHigh,
+      backgroundColor: theme.colors.default.surfaceHigh,
       // backgroundColor: theme.colors.primaryLightScheme?.[8],
       // elevation: 2,
       width: constants.windowWidth - constants.spacingLXX,
