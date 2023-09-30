@@ -1,8 +1,8 @@
 import React, { memo } from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { constants } from "../../themes";
-import { AppText } from "../forms";
 import { getRandomArrayIndex } from "../../utils/utils";
+import { AppText } from "../forms";
 
 const funnyMessages = [
   "Oopsie-doodle! Looks like the data went on vacation and forgot to come back. 🏝️🤷‍♂️",
@@ -43,7 +43,7 @@ export default memo(AppNoData);
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: constants.paddingHorizontalApp,
+    paddingHorizontal: constants.spacingL,
     paddingVertical: 2,
     width: constants.windowWidth,
     alignItems: "center",

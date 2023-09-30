@@ -87,14 +87,14 @@ const getDynamicStyles = () => {
     //* primary btn
 
     text: {
-      color: 'rgba(255,255,255,0.87)',
+      color: 'rgba(255,255,255,0.9)',
     },
     textOutline: {
-      color: theme.colors.primaryText.main,
+      color: theme.colors.primary.main,
     },
 
     primaryButton: {
-      backgroundColor: theme.colors.primaryText.medium,
+      backgroundColor: theme.colors.primary.main,
       width: "100%",
       height: 48,
       borderRadius: 8,

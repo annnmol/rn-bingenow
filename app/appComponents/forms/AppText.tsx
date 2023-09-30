@@ -116,77 +116,52 @@ const getDynamicStyles = () => {
   return StyleSheet.create({
     //heading
     H1: {
-      color: theme.colors.text.main,
-      fontWeight: "600",
-      fontSize: 32,
-      letterSpacing: 1,
+      ...theme.typography.H1,
+      color:theme.colors.text.dark
     },
     H2: {
-      color: theme.colors.text.medium,
-      fontWeight: "500",
-      fontSize: 28,
-      letterSpacing: 1,
+      ...theme.typography.H2,
+      color:theme.colors.text.medium
     },
     H3: {
-      color: theme.colors.text.light,
-      fontWeight: "600",
-      fontSize: 24,
-      letterSpacing: 1,
+      ...theme.typography.H3,
+      color:theme.colors.text.light
     },
     H4: {
-      color: theme.colors.text.main,
-      fontWeight: "600",
-      fontSize: 20,
-      letterSpacing: 1,
+      ...theme.typography.H4,
+      color:theme.colors.text.main
     },
     H5: {
-      color: theme.colors.text.main,
-      fontWeight: "600",
-      fontSize: 18,
-      letterSpacing: 1,
+      ...theme.typography.H5,
+      color:theme.colors.text.main
     },
 
     //buttons
     button1: {
-      color: theme.colors.text.main,
-      fontWeight: "600",
-      fontSize: 18,
-      textTransform: "uppercase",
-      letterSpacing: 1.5,
+      ...theme.typography.button1,
+      color:theme.colors.text.main
     },
     button2: {
-      color: theme.colors.text.main,
-      fontWeight: "600",
-      fontSize: 18,
-      letterSpacing: 1.5,
+      ...theme.typography.button2,
+      color:theme.colors.text.main
     },
     button3: {
-      color: theme.colors.text.main,
-      fontWeight: "600",
-      fontSize: 16,
-      letterSpacing: 1.5,
+      ...theme.typography.button3,
+      color:theme.colors.text.main
     },
 
     //body
     body1: {
-      // ...theme.font,
-      color: theme.colors.text.medium,
-      fontSize: 16,
-      lineHeight:20,
-      letterSpacing: 0.5,
+      ...theme.typography.body1,
+      color:theme.colors.text.medium
     },
     body2: {
-      // ...theme.font,
-      color: theme.colors.text.medium,
-      fontSize: 14,
-      lineHeight:16,
-      letterSpacing: 0.5,
+      ...theme.typography.body2,
+      color:theme.colors.text.medium
     },
     body3: {
-      // ...theme.font,
-      color: theme.colors.text.light,
-      fontSize: 14,
-      letterSpacing: 0.5,
+      ...theme.typography.body3,
+      color:theme.colors.text.light
     },
   });
 };

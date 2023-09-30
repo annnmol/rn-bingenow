@@ -23,7 +23,7 @@ const AuthNavigator = ({ navigation }: any) => {
         headerBackTitleStyle: styles.backArrow,
         headerShown: false,
         gestureEnabled: true,
-        presentation: "card",
+        presentation: "modal",
       }}
       initialRouteName={ROUTES_NAMES.WELCOME}
     >

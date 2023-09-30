@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
 import { ROUTES_NAMES } from "./Routes";
-import { colors } from "../themes";
 import HomeNavigator from "./HomeNavigator";
 import { AppExpoIcons } from "../appComponents/icons";
 import SearchScreen from "../screens/search";

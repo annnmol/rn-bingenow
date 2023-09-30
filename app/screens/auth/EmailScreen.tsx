@@ -38,7 +38,7 @@ const EmailScreen: React.FC<Props> = ({ navigation }) => {
       >
         Endless entertainment, all in one place.
       </AppText>
-      <AppText variant="body3" style={{ textAlign: "center" }}>
+      <AppText variant="body2" style={{ textAlign: "center" }}>
         I would like to receive updates, special offers, and other information
         from bingeNow and The Walt Disney Family of Companies.
       </AppText>
@@ -75,7 +75,8 @@ const getDynamicStyles = () => {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      // backgroundColor:'red'
+      backgroundColor:theme.colors.background
+      // backgroundColor:theme.colors.default.surfaceContainer
       //
     },
 
@@ -84,14 +85,15 @@ const getDynamicStyles = () => {
       justifyContent: "center",
       alignItems: "center",
       borderRadius: 8,
-      backgroundColor:theme.colors.card,
+      backgroundColor:theme.colors.default.surfaceHigh,
       // backgroundColor: theme.colors.primaryLightScheme?.[8],
-      elevation: 2,
+      // elevation: 2,
       width: constants.windowWidth - constants.spacingLXX,
       // height: constants.windowHeight / 3,
       paddingHorizontal: constants.spacingM,
       paddingVertical: constants.spacingM,
       marginHorizontal: constants.spacingLX,
+      ...theme.shadow,
       // marginBottom: constants.spacingLXX,
     },
   });

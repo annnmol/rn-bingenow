@@ -1,43 +1,32 @@
 import {
   NavigationProp,
-  useNavigation,
-  useTheme,
+  useTheme
 } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import {
-  StyleSheet,
-  View,
-  Text,
   Animated as AnimatedNative,
   ImageBackground,
-  Image,
-  StatusBar,
-  ToastAndroid,
+  StyleSheet,
+  View
 } from "react-native";
-import { ROUTES_NAMES } from "../../navigation/Routes";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import Animated, {
+import {
   Easing,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
-  withSequence,
-  withSpring,
-  withTiming,
+  withTiming
 } from "react-native-reanimated";
-import { AppFastImage } from "../../appComponents/images";
-import { AppExpoIcons } from "../../appComponents/icons";
-import { AppText } from "../../appComponents/forms";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { AppButton } from "../../appComponents/buttons";
-import { LinearGradient } from "expo-linear-gradient";
+import { AppText } from "../../appComponents/forms";
+import { ROUTES_NAMES } from "../../navigation/Routes";
 import { constants } from "../../themes";
 
 const SPLASH_DELAY = 5000; // 5 seconds
 const SPLASH_ANIMATION_DURATION = 2000; // 2 seconds
 const SPLASH_ANIMATION_DELAY = 1000; // 1 second
 const SPLASH_ANIMATION_EASING = Easing.linear;
-const SPLASH_IMAGE = require("../../assets/images/image_9.webp");
+const SPLASH_IMAGE = require("../../assets/images/backdrop.webp");
 // const SPLASH_IMAGE = "https://picsum.photos/200/300";
 // const SPLASH_IMAGE = "../../../assets/splash.png";
 
@@ -154,18 +143,33 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
     <ImageBackground source={SPLASH_IMAGE} style={styles.image}>
       <LinearGradient
         // Background Linear Gradient
-        colors={["transparent", theme.colors.background, theme.colors.background]}
+        colors={[
+          "rgba(0,0,0,0.2)",
+          "rgba(0,0,0,0.4)",
+          "rgba(0,0,0,0.8)",
+          "rgba(0,0,0,1)",
+          "rgba(0,0,0,1)",
+        ]}
         style={styles.backdrop}
       />
 
       <View style={styles.infoBox}>
-        <AppText variant="H1">BingeNow</AppText>
         <AppText
-          variant="H5"
+          variant="H1"
+          style={{
+           color:"rgba(255,255,255,1)",
+          }}
+        >
+          BingeNow
+        </AppText>
+        <AppText
+          variant="body1"
           style={{
             textAlign: "center",
-            marginBottom: constants.spacingLX,
+            marginBottom: constants.spacingLXX,
             marginTop: -constants.spacingSX,
+           color:"rgba(255,255,255,0.8)",
+
           }}
         >
           Endless entertainment, all in one place.
@@ -173,7 +177,10 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
         <AppButton onPress={() => handleContinueClick()} textVariant="button1">
           Continue
         </AppButton>
-        <AppText variant="body3" style={{ textAlign: "center" }}>
+        <AppText variant="body3" style={{ textAlign: "center", 
+           color:"rgba(255,255,255,0.5)",
+      
+      }}>
           By creating an account you get access to an unlimited number of
           exercises
         </AppText>
@@ -203,7 +210,6 @@ const getDynamicStyles = () => {
       justifyContent: "flex-end",
     },
     infoBox: {
-      //   backgroundColor: "red",
       justifyContent: "center",
       alignItems: "center",
       gap: constants.spacingM,
@@ -211,7 +217,7 @@ const getDynamicStyles = () => {
       height: constants.windowHeight / 3,
       paddingHorizontal: constants.spacingL,
       paddingVertical: constants.spacingL,
-      marginBottom: constants.spacingLXX,
+      marginBottom: constants.spacingLX,
     },
   });
 };
