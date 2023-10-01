@@ -16,8 +16,9 @@ export class ROUTES_NAMES {
   public static SPLASH = "Splash";
   public static WELCOME = "Welcome";
 
+  public static UPDATE_NAME = "UpdateName";
   public static LOGIN = "Login";
-  public static SIGNUP = "Singup";
+  public static SIGNUP = "Signup";
   public static FORGET_PASSORD = "ForgetPassword";
   public static VERIFY_MOBILE = "VerifyMobile";
 

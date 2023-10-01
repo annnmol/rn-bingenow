@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 
 import AuthUserReducer from "./slices/AuthUserSlice";
+import DefaultUserAvatarReducer from "./slices/DefaultUserAvatarSlice";
 import CategoriesReducer from "./slices/CategoriesSlice";
 import SavedItemsReducer from "./slices/SavedItemsSlice";
 import NowPlayingMoviesReducer from "./slices/movies/NowPlayingMoviesSlice";
@@ -17,6 +18,7 @@ export const store = configureStore({
     currentAuthUser: AuthUserReducer,
     currentCategories: CategoriesReducer,
     currentSavedItems: SavedItemsReducer,
+    currentDefaultUserAvatars: DefaultUserAvatarReducer,
 
     //movies
     currentNowPlayingMovies: NowPlayingMoviesReducer,

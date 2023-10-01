@@ -1,12 +1,14 @@
-import { StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { StyleSheet } from "react-native";
 
-import EmailScreen from "../screens/auth/EmailScreen";
+import LoginScreen from "../screens/auth/LoginScreen";
+import UpdateNameScreen from "../screens/auth/UpdateNameScreen";
 import WelcomeScreen from "../screens/auth/WelcomeScreen";
 import DrawerNavigator from "./DrawerNavigator";
 import { ROUTES_NAMES } from "./Routes";
 import TabsNavigator from "./TabsNavigator";
+import RegisterScreen from "../screens/auth/RegisterScreen";
 
 const Stack = createStackNavigator();
 
@@ -30,11 +32,31 @@ const AuthNavigator = ({ navigation }: any) => {
       <Stack.Screen name={ROUTES_NAMES.WELCOME} component={WelcomeScreen} />
       <Stack.Screen
         name={ROUTES_NAMES.LOGIN}
-        component={EmailScreen}
+        component={LoginScreen}
         options={{
           headerShown: true,
           presentation: "modal",
-          headerTitle: "Step 1 of 3",
+          headerTitle: "LOGIN",
+          headerTitleStyle: styles.headerText,
+        }}
+      />
+      <Stack.Screen
+        name={ROUTES_NAMES.SIGNUP}
+        component={RegisterScreen}
+        options={{
+          headerShown: true,
+          presentation: "modal",
+          headerTitle: "STEP 1 OF 2",
+          headerTitleStyle: styles.headerText,
+        }}
+      />
+      <Stack.Screen
+        name={ROUTES_NAMES.UPDATE_NAME}
+        component={UpdateNameScreen}
+        options={{
+          headerShown: true,
+          presentation: "transparentModal",
+          headerTitle: "STEP 2 OF 2",
           headerTitleStyle: styles.headerText,
         }}
       />
@@ -62,8 +84,9 @@ const getDynamicStyles = () => {
   return StyleSheet.create({
     headerText: {
       fontSize: 14,
-      textTransform: "capitalize",
-      color: theme.colors.text.medium,
+      letterSpacing:1,
+      color: theme.colors.text.main,
+      textTransform: "uppercase",
     },
     headerBox: {
       backgroundColor: theme.colors.background,

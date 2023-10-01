@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#121212"
+      "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -32,6 +32,12 @@
         "projectId": "16f63848-bca0-483d-984e-173e15901a87"
       }
     },
-    "owner": "anmoltanwar"
+    "owner": "anmoltanwar",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/16f63848-bca0-483d-984e-173e15901a87"
+    }
   }
 }

@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { Controller, useController } from "react-hook-form";
-import {
-  KeyboardTypeOptions,
-  TextInput,
-  View
-} from "react-native";
+import { KeyboardTypeOptions, TextInput, View } from "react-native";
 import AppExpoIcons, { IconName } from "../icons/AppExpoIcons";
 import AppIconButton from "../icons/AppIconButton";
 import AppFormError from "./AppFormError";
 import AppFormLabel from "./AppFormLabel";
-import {  getStyledForms } from "./StyledForms";
+import { getStyledForms } from "./StyledForms";
 
 interface Props extends TextFieldProps {
   keyboardType?: KeyboardTypeOptions;
@@ -35,20 +31,20 @@ const AppFormPasswordField: React.FC<Props> = ({
 
   const [isPasswordVisible, setIsPasswordVisible] = useState<Boolean>(false);
   const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
-  const dynamicFieldStyle = {}
-    // isInputFocused && !isTouched && !invalid
-    //   ? StyledForms.inputFieldFocused
-    //   : isTouched && invalid && error?.message
-    //   ? StyledForms.inputFieldError
-    //   : isTouched && !invalid && value
-    //   ? StyledForms.inputFieldSuccess
-    //   : {};
-  const dynamicIconStyle = {}
-    // isTouched && invalid && error?.message
-    //   ? StyledForms.leftIconError
-    //   : isTouched && !invalid && value
-    //   ? StyledForms.leftIconSuccess
-    //   : {};
+  const dynamicFieldStyle = {};
+  // isInputFocused && !isTouched && !invalid
+  //   ? StyledForms.inputFieldFocused
+  //   : isTouched && invalid && error?.message
+  //   ? StyledForms.inputFieldError
+  //   : isTouched && !invalid && value
+  //   ? StyledForms.inputFieldSuccess
+  //   : {};
+  const dynamicIconStyle = {};
+  // isTouched && invalid && error?.message
+  //   ? StyledForms.leftIconError
+  //   : isTouched && !invalid && value
+  //   ? StyledForms.leftIconSuccess
+  //   : {};
 
   return (
     <Controller
@@ -60,6 +56,7 @@ const AppFormPasswordField: React.FC<Props> = ({
       }) => (
         <View style={[StyledForms.formControl, divStyle && divStyle]}>
           <AppFormLabel label={label} />
+          <View style={StyledForms.inputFieldContainer}>
           {icon ? (
             <AppExpoIcons
               name={icon}
@@ -91,17 +88,22 @@ const AppFormPasswordField: React.FC<Props> = ({
             ]}
             keyboardType={keyboardType}
             secureTextEntry={isPasswordVisible ? false : true}
+            placeholderTextColor={StyledForms.inputFieldPlaceholder.color}
+
             {...otherProps}
           />
-           <View style={[StyledForms.endIcon, {borderRightWidth:0}]}>
-
-          <AppIconButton  onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
-          <AppExpoIcons
-              name={isPasswordVisible ? "eye-off" : "eye"}
-              size={20}
+          <View style={[StyledForms.endIcon, { borderRightWidth: 0 }]}>
+            <AppIconButton
+              onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+            >
+              <AppExpoIcons
+                name={isPasswordVisible ? "eye-off" : "eye"}
+                size={20}
+                style={[StyledForms.endIconColor]}
               />
-          </AppIconButton>
-              </View>
+            </AppIconButton>
+          </View>
+          </View>
           <AppFormError
             visible={error && invalid}
             error={error?.message as string}

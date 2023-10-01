@@ -11,7 +11,7 @@ interface IconProps {
   style?: StyleProp<any>
 }
 
-const AppExpoIcons: React.FC<IconProps> = ({ name, size = 24, color = '#282828', style }) => {
+const AppExpoIcons: React.FC<IconProps> = ({ name, size = 24, color = 'rgba(0,0,0,0.55)', style }) => {
   const renderIcon = () => {
     if (Ionicons['glyphMap'].hasOwnProperty(name)) {
       const IconComponent = Ionicons as any;

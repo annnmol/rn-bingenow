@@ -40,6 +40,7 @@ import {
 } from "../../store/slices/movies/PopularMoviesSlice";
 import { getVotedMovie } from "../../utils/utils";
 import { replaceSavedItem } from "../../store/slices/SavedItemsSlice";
+import { setDefaultUserAvatars } from "../../store/slices/DefaultUserAvatarSlice";
 
 const getHomeContent = () => {
   //onRefresh
@@ -54,7 +55,7 @@ const getHomeContent = () => {
   // const [apiFetchingCount, setApiFetchingCount] = React.useState(0);
 
   // const navigation = useNavigation<any>();
-  const { getFirebase } = useFirebaseDBService();
+  const { getFirebase, getFileFirebase,getAllFilesFirebase } = useFirebaseDBService();
   const dispatch = useAppDispatch();
   const { data: nowPlayingMovies, loading: nowPlayingMoviesLoading } =
     useAppSelector(nowPlayingMoviesStore);
@@ -184,7 +185,9 @@ const getHomeContent = () => {
   };
 
   React.useEffect(() => {
-    getNowPlayingMovies();
+    // getNowPlayingMovies();
+    // getAllFilesFirebaseFn();
+    // getFileFirebaseFn();
     // getTrendingAll();
     // getTopRatedAll();
     // getFreshTv();
@@ -197,7 +200,31 @@ const getHomeContent = () => {
   const getSavedItems = () => {
     getFirebase(`savedMovies`)
       .then((res) => {
+        console.log("🚀 ~ file: getHomeContent.ts:201 ~ .then ~ res:", res);
+        
         dispatch(replaceSavedItem(res));
+      })
+      .catch((err) => {
+        // setApiFetchingCount(apiFetchingCount+1)
+        console.warn("err", err);
+      });
+  };
+  const getFileFirebaseFn = () => {
+    getFileFirebase(`user-avatars-default/3d_avatar_1.png`)
+      .then((res) => {
+        console.log("getFirebasePublic", res);
+        // dispatch(replaceSavedItem(res));
+      })
+      .catch((err) => {
+        // setApiFetchingCount(apiFetchingCount+1)
+        console.warn("err", err);
+      });
+  };
+  const getAllFilesFirebaseFn = () => {
+    getAllFilesFirebase(`user-avatars-default`)
+      .then((res) => {
+        console.log("getFirebasePublic", res);
+        dispatch(setDefaultUserAvatars(res));
       })
       .catch((err) => {
         // setApiFetchingCount(apiFetchingCount+1)

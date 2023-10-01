@@ -57,8 +57,10 @@ const typography = {
   },
   body3: {
     fontSize: 14,
-    lineHeight: 18,
+    fontWeight: "500",
+    lineHeight: 20,
     letterSpacing: 0.5,
+
   },
 };
 

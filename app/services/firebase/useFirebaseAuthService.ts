@@ -23,7 +23,6 @@ const useFirebaseAuthService = () => {
     const unsubscribeFromAuthStateChanged = onAuthStateChanged(
       firebaseAuth,
       (currentUser: User | null) => {
-        // console.log("currentUser", currentUser);
         dispatch(setAuthUser(currentUser));
         setIsAppReady(true);
       }
@@ -64,8 +63,14 @@ const useFirebaseAuthService = () => {
   const updateUserProfile = async (data: UpdateUserProfile) => {
     const user: User | null = firebaseAuth.currentUser;
     if(!user) return Promise.reject('No user found');
+
     return await updateProfile(user, data)
       .then((response) => {
+        dispatch(setAuthUser({
+          ...user,
+          displayName: data.displayName,
+          photoURL: data.photoURL,
+        }));
         return Promise.resolve(response);
       })
       .catch((error: any) => {

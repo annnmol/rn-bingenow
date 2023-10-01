@@ -10,7 +10,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes, listAll } from "firebase/storage";
 import { firebaseDb, firebaseStorage } from "./firebase";
 import { convertSnapShotToDataArray } from "./utils";
 import { authUserStore } from "../../store/slices/AuthUserSlice";
@@ -86,7 +86,7 @@ const useFirebaseDBService = () => {
   const deleteFirebase = async (endpoint: string, docId: string) => {
     let collectionRef = collection(firebaseDb, endpoint);
     const documentRef = doc(collectionRef, docId);
-    
+
     return await deleteDoc(documentRef)
       .then((res) => {
         return Promise.resolve(res);
@@ -143,6 +143,30 @@ const useFirebaseDBService = () => {
       });
   };
 
+  //* Get all files download URL from Firebase Storage
+  const getAllFilesFirebase = async (endpoint: string) => {
+    const storageRef = ref(firebaseStorage, endpoint);
+    return await listAll(storageRef)
+      .then((res) => {
+        // Map the list of file references to an array of promises for download URLs
+        // All the items under listRef.
+        const downloadURLPromises = res.items?.map(async (itemRef) => {
+          const url = await getDownloadURL(itemRef);
+          let name = itemRef.name;
+          let fullPath = itemRef.fullPath;
+          let item = { name, fullPath, url };
+          // console.log("itemRef", itemRef.name, itemRef.fullPath, url);
+          return item;
+        });
+
+        // Use Promise.all to wait for all promises to resolve
+        return Promise.all(downloadURLPromises);
+      })
+      .catch((err) => {
+        return Promise.reject(err);
+      });
+  };
+
   return {
     getFirebase,
     postFirebase,
@@ -152,6 +176,7 @@ const useFirebaseDBService = () => {
     getFileFirebase,
     getFirebaseById,
     getFirebasePublic,
+    getAllFilesFirebase,
   };
 };
 

@@ -9,6 +9,7 @@ import Checkbox from "expo-checkbox";
 import AppFormError from "./AppFormError";
 import AppFormLabel from "./AppFormLabel";
 import { getStyledForms } from "./StyledForms";
+import AppText from "./AppText";
 
 
 interface Props extends TextFieldProps {
@@ -37,16 +38,17 @@ const AppFormCheckboxField: React.FC<Props> = ({
       }) => (
         <View style={[StyledForms.formControl, divStyle && divStyle]}>
           <AppFormLabel label={label} />
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+          <View style={{ flexDirection: "row", alignItems: "flex-start",gap: 10 }}>
             <Checkbox
               value={value}
               onValueChange={(e: boolean) => {
                 onChange(e);
                 if (onChangeCallbackFn) onChangeCallbackFn(e);
               }}
+              style={{marginTop:4,}}
               {...otherProps}
             />
-            <Text>{text}</Text>
+            <AppText variant="body3" style={{ width:"90%"}}>{text}</AppText>
           </View>
 
           <AppFormError

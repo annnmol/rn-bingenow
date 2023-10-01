@@ -56,6 +56,8 @@ const AppFormTextField: React.FC<Props> = ({
       }) => (
         <View style={[StyledForms.formControl, divStyle && divStyle]}>
           <AppFormLabel label={label} />
+
+          <View style={StyledForms.inputFieldContainer}>
           {icon ? (
             <AppExpoIcons
               name={icon}
@@ -86,8 +88,10 @@ const AppFormTextField: React.FC<Props> = ({
               { paddingLeft: icon ? 48 : 16 },
             ]}
             keyboardType={keyboardType}
+            placeholderTextColor={StyledForms.inputFieldPlaceholder.color}
             {...otherProps}
           />
+          </View>
           <AppFormError
             visible={error && invalid}
             error={error?.message as string}

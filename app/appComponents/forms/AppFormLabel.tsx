@@ -6,6 +6,8 @@ import AppText from "./AppText";
 const AppFormLabel: React.FC<AppFormLabelProps> = ({ label, divStyle,...otherProps }) => {
   const StyledForms = getStyledForms();
 
+  if(!label) return null;
+
   return (
     <AppText
       style={[StyledForms.labelText, divStyle && divStyle]}

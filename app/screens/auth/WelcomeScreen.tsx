@@ -1,26 +1,28 @@
-import {
-  NavigationProp,
-  useTheme
-} from "@react-navigation/native";
+import { NavigationProp, useTheme } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import {
   Animated as AnimatedNative,
   ImageBackground,
+  StatusBar,
   StyleSheet,
-  View
+  View,
 } from "react-native";
 import {
   Easing,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
-  withTiming
+  withTiming,
 } from "react-native-reanimated";
 import { AppButton } from "../../appComponents/buttons";
+import { AppItemSeparator } from "../../appComponents/extras";
 import { AppText } from "../../appComponents/forms";
 import { ROUTES_NAMES } from "../../navigation/Routes";
 import { constants } from "../../themes";
+import { useFirebaseDBService } from "../../services/firebase";
+import { setDefaultUserAvatars } from "../../store/slices/DefaultUserAvatarSlice";
+import { useAppDispatch } from "../../store";
 
 const SPLASH_DELAY = 5000; // 5 seconds
 const SPLASH_ANIMATION_DURATION = 2000; // 2 seconds
@@ -37,16 +39,30 @@ interface Props {
 const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
   const styles = getDynamicStyles();
   const theme: any = useTheme();
+  const dispatch = useAppDispatch();
+  const { getAllFilesFirebase } = useFirebaseDBService();
+  const getAllFilesFirebaseFn = () => {
+    getAllFilesFirebase(`user-avatars-default`)
+      .then((res) => {
+        // console.log("getFirebasePublic", res);
+        dispatch(setDefaultUserAvatars(res));
+      })
+      .catch((err) => {
+        // setApiFetchingCount(apiFetchingCount+1)
+        console.warn("err", err);
+      });
+  };
 
   const fadeAnim = new AnimatedNative.Value(0);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
+    getAllFilesFirebaseFn();
     // AnimatedNative.timing(fadeAnim, {
     //   toValue: 1,
     //   duration: 2000, // Adjust the duration as needed (in milliseconds)
     //   useNativeDriver: true,
     // }).start();
     //   handleAnimation();
-    //   StatusBar.setBarStyle("light-content");
+    // StatusBar.setBarStyle("light-content");
     //   StatusBar.setBackgroundColor(theme.colors.primaryDarkScheme?.[7]);
     //   // After 5 seconds, navigate to your main app screen
     //   const timer = setTimeout(() => {
@@ -136,8 +152,11 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
     // }
   };
 
-  const handleContinueClick = () => {
+  const handleLoginBtnClick = () => {
     navigation.navigate(ROUTES_NAMES.LOGIN);
+  };
+  const handleSignUpBtnClick = () => {
+    navigation.navigate(ROUTES_NAMES.SIGNUP);
   };
   return (
     <ImageBackground source={SPLASH_IMAGE} style={styles.image}>
@@ -157,7 +176,7 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
         <AppText
           variant="H1"
           style={{
-           color:"rgba(255,255,255,1)",
+            color: "rgba(255,255,255,1)",
           }}
         >
           BingeNow
@@ -168,22 +187,35 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
             textAlign: "center",
             marginBottom: constants.spacingLXX,
             marginTop: -constants.spacingSX,
-           color:"rgba(255,255,255,0.8)",
-
+            color: "rgba(255,255,255,0.8)",
           }}
         >
           Endless entertainment, all in one place.
         </AppText>
-        <AppButton onPress={() => handleContinueClick()} textVariant="button1">
-          Continue
+        <AppButton onPress={() => handleSignUpBtnClick()} textVariant="button1">
+          Join Us Now
         </AppButton>
-        <AppText variant="body3" style={{ textAlign: "center", 
-           color:"rgba(255,255,255,0.5)",
-      
-      }}>
+        <AppText
+          variant="body3"
+          style={{ textAlign: "center", color: "rgba(255,255,255,0.5)" }}
+        >
           By creating an account you get access to an unlimited number of
           exercises
         </AppText>
+
+        <AppItemSeparator
+          style={{
+            backgroundColor: "rgba(255,255,255,0.2)",
+            marginTop: constants.spacingLX,
+          }}
+        />
+        <AppButton
+          onPress={() => handleLoginBtnClick()}
+          textVariant="button2"
+          variant="text"
+        >
+          Log In
+        </AppButton>
       </View>
     </ImageBackground>
   );
@@ -210,14 +242,13 @@ const getDynamicStyles = () => {
       justifyContent: "flex-end",
     },
     infoBox: {
-      justifyContent: "center",
+      justifyContent: "flex-end",
       alignItems: "center",
       gap: constants.spacingM,
       width: constants.windowWidth,
-      height: constants.windowHeight / 3,
       paddingHorizontal: constants.spacingL,
       paddingVertical: constants.spacingL,
-      marginBottom: constants.spacingLX,
+      marginBottom: constants.spacingM,
     },
   });
 };

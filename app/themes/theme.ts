@@ -184,7 +184,7 @@ const darkTheme = {
       OnPrimaryContainer: ColorUtils.getColor(PRIMARY, 0.1),
     },
     error: {
-      main: ColorUtils.getColor(ERROR, 0.2),
+      main: ERROR,
       onError: ColorUtils.getColor(ERROR, 0.8),
       errorContainer: ColorUtils.getColor(ERROR, 0.7),
       OnErrorContainer: ColorUtils.getColor(ERROR, 0.1),

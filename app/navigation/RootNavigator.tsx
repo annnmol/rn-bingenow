@@ -59,19 +59,19 @@ const RootNavigator = () => {
     return null;
   }
 
-  console.log("app ready getting user", authUser?.email)
+  console.log("app ready getting user", authUser?.displayName)
 
   return (
     <NavigationContainer theme={curTheme as any}>
       <StatusBar
-        // style={curTheme?.dark ? "light" : "dark"}
-        style={"auto"}
+        style={curTheme?.dark ? "light" : "dark"}
+        // style={"auto"}
         animated
         networkActivityIndicatorVisible={true}
       />
  {/* <AuthNavigator /> */}
       {/* <TabsNavigator /> */}
-      {authUser?.email ? <TabsNavigator /> : <AuthNavigator />}
+      {authUser?.email &&  authUser?.displayName ? <TabsNavigator /> : <AuthNavigator />}
       {/* {authUser?.email ? <DrawerNavigator /> : <AuthNavigator />} */}
       {/* <AppOfflineAlert /> */}
     </NavigationContainer>

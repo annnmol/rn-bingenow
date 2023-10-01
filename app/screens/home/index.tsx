@@ -23,6 +23,9 @@ import { trendingAllStore } from "../../store/slices/movies/TrendingAllSlice";
 import { ultimateMoviesStore } from "../../store/slices/movies/UltimateMoviesSlice";
 import { upcomingMoviesStore } from "../../store/slices/movies/UpcomingMoviesSlice";
 import { constants } from "../../themes";
+import { useFirebaseDBService } from "../../services/firebase";
+import { AppButton } from "../../appComponents/buttons";
+import { useDefaultUserAvatarStore } from "../../store/slices/DefaultUserAvatarSlice";
 
 interface Props extends ILoaderProps {
   navigation: NavigationProp<any>; // Define the type for navigation
@@ -30,6 +33,8 @@ interface Props extends ILoaderProps {
 const Homescreen: React.FC<Props> = ({ navigation, setShowLoader }) => {
   const styles = getDynamicStyles();
   const { onRefresh, refreshing } = getHomeContent();
+  const { postFirebase } = useFirebaseDBService();
+
 
   const { data: nowPlayingMovies, loading: nowPlayingMoviesLoading } =
     useAppSelector(nowPlayingMoviesStore);
@@ -46,6 +51,7 @@ const Homescreen: React.FC<Props> = ({ navigation, setShowLoader }) => {
   const { data: popularMovies, loading: popularMoviesLoading } =
     useAppSelector(popularMoviesStore);
   const { savedItems } = useAppSelector(useSavedItemsStore);
+  // const { defaultUserAvatars } = useAppSelector(useDefaultUserAvatarStore);
 
   // console.log("nowPlayingMovies", nowPlayingMovies?.length, nowPlayingMovies?.[0]);
   // console.log("trendingAll", trendingAll?.length);
@@ -55,8 +61,26 @@ const Homescreen: React.FC<Props> = ({ navigation, setShowLoader }) => {
   // console.log("ultimateMovies", ultimateMovies?.length);
   // console.log("popularMovies", popularMovies?.length);
   // console.log("savedItems", savedItems?.length);
+  // console.log("defaultUserAvatars", defaultUserAvatars?.[0])
 
   React.useEffect(() => {}, []);
+
+  const createSavedItem = () => {
+    let data = {
+      // ...item,
+      title:'anmol',
+      created_on: new Date(Date.now()),
+    };
+
+    postFirebase("savedMovies", data)
+      .then((res) => {
+      
+        console.log("res post", res);
+      })
+      .catch((err) => {
+        console.warn("err", err);
+      });
+  };
 
   const renderItem = ({ item, index }: any) => {
     return (
@@ -78,8 +102,20 @@ const Homescreen: React.FC<Props> = ({ navigation, setShowLoader }) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-    
-    
+    <AppButton onPress={()=>createSavedItem()} > Post firebased</AppButton>
+    {/* {
+      defaultUserAvatars?.map((item,index:number)=>{
+        return(
+          <View style={{flex:1,flexDirection:'row',justifyContent:'center',alignItems:'center'}} key={index?.toString()}>
+            <AppFastImage
+              source={{ uri: item?.url }}
+              style={{width:100,height:100}}
+            />
+            <Text style={{color:'white'}}>{item?.name}</Text>
+          </View>
+        )
+      })
+    } */}
       {/* <ScrollView contentContainerStyle={styles.container}> */}
         <View style={styles.lightBg}>
           <Text style={styles.text}>Homescreen Main</Text>

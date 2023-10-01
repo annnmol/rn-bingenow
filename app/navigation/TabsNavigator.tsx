@@ -8,12 +8,16 @@ import MyListScreen from "../screens/myList";
 import UserScreen from "../screens/user";
 import { useTheme } from "@react-navigation/native";
 import { AppAvatar } from "../appComponents/images";
+import { useAppSelector } from "../store";
+import { authUserStore } from "../store/slices/AuthUserSlice";
 
 const Tab = createBottomTabNavigator();
 
 const TabsNavigator = () => {
   const theme: any = useTheme();
   const styles = getDynamicStyles();
+  const { authUser } = useAppSelector(authUserStore);
+  const tabUserAvatarIcon = authUser?.photoURL ?? require("..//assets/avatars/avatar4.webp"); 
 
   return (
     <Tab.Navigator
@@ -92,7 +96,7 @@ const TabsNavigator = () => {
         options={{
           tabBarIcon: ({ focused, size, color }) => (
             <AppAvatar
-              source={require("..//assets/avatars/avatar4.webp")}
+              source={tabUserAvatarIcon}
               size={20}
               style={{ borderWidth: focused ? 1 : 0, borderColor: color }}
             />
@@ -114,6 +118,9 @@ const getDynamicStyles = () => {
     customTabBarStyle: {
       // borderTopWidth: 0,
       backgroundColor: theme.colors.background,
+      // backgroundColor: "red",
+      border: "none",
+      borderTopWidth: 0,
       paddingBottom: 6,
       paddingTop: 4,
     },
