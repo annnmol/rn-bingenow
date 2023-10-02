@@ -90,7 +90,7 @@ const getDynamicStyles = () => {
       color: 'rgba(255,255,255,0.9)',
     },
     textOutline: {
-      color: theme.colors.primary.main,
+      color: theme.colors.text.medium,
     },
 
     primaryButton: {
@@ -105,7 +105,7 @@ const getDynamicStyles = () => {
 
     //*outline
     outlineButton: {
-      backgroundColor: '#FEF7FF',
+      backgroundColor: theme.colors.default.surface,
       width: "100%",
       height: 48,
       borderRadius: 8,

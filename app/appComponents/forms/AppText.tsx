@@ -133,7 +133,7 @@ const getDynamicStyles = () => {
     },
     H5: {
       ...theme.typography.H5,
-      color:theme.colors.text.main
+      color:theme.colors.text.medium
     },
 
     //buttons

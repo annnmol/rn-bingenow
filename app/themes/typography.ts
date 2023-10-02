@@ -11,35 +11,35 @@ const typography = {
     letterSpacing: 1,
   },
   H3: {
-    fontWeight: "600",
+    fontWeight: "500",
     fontSize: 24,
     letterSpacing: 1,
   },
   H4: {
-    fontWeight: "600",
+    fontWeight: "500",
     fontSize: 20,
     letterSpacing: 1,
   },
   H5: {
-    fontWeight: "600",
-    fontSize: 18,
+    fontWeight: "500",
+    fontSize: 17,
     letterSpacing: 1,
   },
 
   //buttons
   button1: {
-    fontWeight: "600",
-    fontSize: 18,
+    fontWeight: "500",
+    fontSize: 17,
     textTransform: "uppercase",
     letterSpacing: 1.5,
   },
   button2: {
-    fontWeight: "600",
-    fontSize: 18,
+    fontWeight: "500",
+    fontSize: 17,
     letterSpacing: 1.5,
   },
   button3: {
-    fontWeight: "600",
+    fontWeight: "500",
     fontSize: 16,
     letterSpacing: 1.5,
   },

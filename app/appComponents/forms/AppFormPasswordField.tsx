@@ -89,7 +89,6 @@ const AppFormPasswordField: React.FC<Props> = ({
             keyboardType={keyboardType}
             secureTextEntry={isPasswordVisible ? false : true}
             placeholderTextColor={StyledForms.inputFieldPlaceholder.color}
-
             {...otherProps}
           />
           <View style={[StyledForms.endIcon, { borderRightWidth: 0 }]}>

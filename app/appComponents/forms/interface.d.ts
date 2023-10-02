@@ -31,7 +31,7 @@ interface AppFormErrorProps extends React.ComponentProps<typeof Text> {
 }
 interface AppFormLabelProps extends React.ComponentProps<typeof Text> {
   label: string | undefined | null;
-  divStyle?: StyleProp<TextStyle>;
+  labelStyle?: StyleProp<TextStyle>;
   [otherProps: string]: any;
 }
 

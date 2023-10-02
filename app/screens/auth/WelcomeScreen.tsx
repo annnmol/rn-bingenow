@@ -16,13 +16,14 @@ import {
   withTiming,
 } from "react-native-reanimated";
 import { AppButton } from "../../appComponents/buttons";
-import { AppItemSeparator } from "../../appComponents/extras";
+import { AppDivider } from "../../appComponents/extras";
 import { AppText } from "../../appComponents/forms";
 import { ROUTES_NAMES } from "../../navigation/Routes";
 import { constants } from "../../themes";
 import { useFirebaseDBService } from "../../services/firebase";
 import { setDefaultUserAvatars } from "../../store/slices/DefaultUserAvatarSlice";
 import { useAppDispatch } from "../../store";
+import { getHomeContent } from "../../appComponents/hooks";
 
 const SPLASH_DELAY = 5000; // 5 seconds
 const SPLASH_ANIMATION_DURATION = 2000; // 2 seconds
@@ -41,6 +42,7 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
   const theme: any = useTheme();
   const dispatch = useAppDispatch();
   const { getAllFilesFirebase } = useFirebaseDBService();
+
   const getAllFilesFirebaseFn = () => {
     getAllFilesFirebase(`user-avatars-default`)
       .then((res) => {
@@ -203,7 +205,7 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
           exercises
         </AppText>
 
-        <AppItemSeparator
+        <AppDivider
           style={{
             backgroundColor: "rgba(255,255,255,0.2)",
             marginTop: constants.spacingLX,

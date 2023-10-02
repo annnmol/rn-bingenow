@@ -3,15 +3,15 @@ import { Text } from "react-native";
 import { getStyledForms } from "./StyledForms";
 import AppText from "./AppText";
 
-const AppFormLabel: React.FC<AppFormLabelProps> = ({ label, divStyle,...otherProps }) => {
+const AppFormLabel: React.FC<AppFormLabelProps> = ({ label, labelStyle,...otherProps }) => {
   const StyledForms = getStyledForms();
 
   if(!label) return null;
 
   return (
     <AppText
-      style={[StyledForms.labelText, divStyle && divStyle]}
-      variant="button3"
+      style={[StyledForms.labelText, labelStyle && labelStyle]}
+      variant="H5"
       {...otherProps}
     >
       {label}

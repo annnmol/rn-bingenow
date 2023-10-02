@@ -6,7 +6,7 @@ interface Props extends React.ComponentProps<typeof View> {
   style?: StyleProp<ViewStyle>;
 }
 
-const AppItemSeparator: React.FC<Props> = ({ style, ...otherProps }) => {
+const AppDivider: React.FC<Props> = ({ style, ...otherProps }) => {
   const styles = getDynamicStyles();
   return <View style={[styles.separator, style]} {...otherProps} />;
 };
@@ -24,4 +24,4 @@ const getDynamicStyles = () => {
   });
 };
 
-export default AppItemSeparator;
+export default AppDivider;

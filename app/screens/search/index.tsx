@@ -2,6 +2,8 @@ import { useTheme } from "@react-navigation/native";
 import { ReactNode } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppSelector } from "../../store";
+import { authUserStore } from "../../store/slices/AuthUserSlice";
 
 interface Props {
   //   children: ReactNode;
@@ -9,6 +11,10 @@ interface Props {
 
 const SearchScreen: React.FC<Props> = () => {
   const styles = getDynamicStyles();
+  const { authUser } = useAppSelector(authUserStore);
+
+  console.log("🚀 ~ file: index.tsx:12 ~ SearchScreen:");
+  
 
   return (
     <SafeAreaView style={styles.container}>

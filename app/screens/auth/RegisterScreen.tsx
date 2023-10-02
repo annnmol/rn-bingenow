@@ -18,10 +18,9 @@ import {
   getRefinedFirebaseAuthErrorMessage,
   useFirebaseAuthService,
 } from "../../services/firebase";
-import { useAppDispatch } from "../../store";
 import { constants } from "../../themes";
 import { LoginSchema } from "./contants";
-import { AppItemSeparator } from "../../appComponents/extras";
+import { AppDivider } from "../../appComponents/extras";
 import { AppButton } from "../../appComponents/buttons";
 
 interface Props {
@@ -30,7 +29,6 @@ interface Props {
 
 const RegisterScreen: React.FC<Props> = ({ navigation }) => {
   const styles = getDynamicStyles();
-  const dispatch = useAppDispatch();
   const { registerUser } = useFirebaseAuthService();
 
   const [userInput, setUserInput] = React.useState({
@@ -95,16 +93,17 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppText variant="body1" style={{ textTransform: "uppercase" }}>
+      <AppText variant="body1" style={styles.titleText}>
         CREATE A NEW ACCOUNT
       </AppText>
+
       <AppForm methods={methods}>
-        <AppText variant="H5">Enter your email address </AppText>
 
         <AppFormTextField
           name="email"
           control={control}
-          // label="Email"
+          label="Email"
+          placeholder={"Enter your email"}
           keyboardType={"email-address"}
           caretHidden={false}
           textContentType="emailAddress"
@@ -112,31 +111,17 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
           icon="alternate-email"
           autoFocus
         />
-
-        <AppText variant="H5">Password </AppText>
-
         <AppFormPasswordField
           name="password"
           control={control}
-          // label="Password"
+          label="Password"
           placeholder={"******"}
           icon="lock"
         />
-        <PasswordStrengthIndicator password={getValues("password")} />
-        {/* <AppFormCheckboxField
-          name="terms"
-          control={control}
-          text=" I would like to receive updates, special offers, and other information
-          from BingeNow."
-          divStyle={{
-            marginTop: 12,
-          }}
-        /> */}
 
-        <View style={styles.infoBox}>
+        {/* <View style={styles.infoBox}>
           <AppText variant="body3">
-            Welcome to BingeNow! 🍿 Get ready for movie magic with the latest
-            from Bollywood and Hollywood. As a dedicated student developer, I'm
+            Welcome to BingeNow! 🍿 Get ready for movie magic. As a dedicated student developer, I'm
             here to share the world of movies with you. While our app may not
             stream actual movies (I'm still learning the magic behind that 🧙‍♂️).
             Feel like peeking behind the scenes? Check out my GitHub{" "}
@@ -149,10 +134,9 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
             >
               (github/@annnmol)
             </AppText>
-            !. So, whether you're a Bollywood buff or a Hollywood aficionado,
-            lights, camera, tap 'Agree and Continue' for the show! 🎬✨
+            . 
           </AppText>
-        </View>
+        </View> */}
         <AppFormSubmitButton
           handleSubmit={handleSubmit(handleSubmitFn)}
           // onPress={handleSubmit(onSubmit)}
@@ -161,7 +145,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
           CONTINUE
         </AppFormSubmitButton>
       </AppForm>
-      <AppItemSeparator
+      <AppDivider
         style={{
           marginTop: -constants.spacingSX,
           marginBottom: constants.spacingS,
@@ -172,7 +156,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
         textVariant="button2"
         variant="outline"
       >
-        Login
+        Already a memeber? Login
       </AppButton>
     </SafeAreaView>
   );
@@ -194,7 +178,7 @@ const getDynamicStyles = () => {
     },
     hyperlinkStyle: {
       color: "#007AFF",
-      textDecorationLine: "underline",
+      // textDecorationLine: "underline",
     },
     infoBox: {
       gap: constants.spacingM,
@@ -202,8 +186,13 @@ const getDynamicStyles = () => {
       backgroundColor: theme.colors.default.surfaceHigh,
       paddingHorizontal: constants.spacingM,
       paddingVertical: constants.spacingM,
-      // marginTop: constants.spacingM,
+      marginTop: constants.spacingS,
       ...theme.shadow,
+    },
+
+    titleText: {
+      textTransform: "uppercase",
+      marginBottom: constants.spacingS,
     },
   });
 };

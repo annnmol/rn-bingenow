@@ -60,9 +60,6 @@ const AuthNavigator = ({ navigation }: any) => {
           headerTitleStyle: styles.headerText,
         }}
       />
-      {/* <Stack.Screen name={ROUTES_NAMES.LOGIN} component={LoginScreen} /> */}
-      {/* <Stack.Screen name={ROUTES_NAMES.SIGNUP} component={RegisterScreen} /> */}
-      {/* <Stack.Screen name={ROUTES_NAMES.SIGNUP} component={AuthScreen} /> */}
 
       <Stack.Screen
         name={ROUTES_NAMES.TABS_NAVIGATOR}
@@ -83,10 +80,11 @@ const getDynamicStyles = () => {
 
   return StyleSheet.create({
     headerText: {
-      fontSize: 14,
-      letterSpacing:1,
-      color: theme.colors.text.main,
-      textTransform: "uppercase",
+      // fontSize: 14,
+      ...theme.typography.H5,
+      letterSpacing: 1,
+      color: theme.colors.text.medium,
+      // textTransform: "uppercase",
     },
     headerBox: {
       backgroundColor: theme.colors.background,

@@ -41,3 +41,5 @@ export const movieImageUrlOriginal = (posterPath: string) =>
   posterPath
     ? "https://image.tmdb.org/t/p/original" + posterPath
     : errorImageUrl;
+export const checkPremiumContent = (rating:number , count:number):boolean =>
+rating > 8 && count > 1000 ? true : false;

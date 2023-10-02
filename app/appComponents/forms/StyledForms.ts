@@ -1,5 +1,6 @@
 import { useTheme } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
+import { constants } from "../../themes";
 
 export const getStyledForms = () => {
   const theme: any = useTheme();
@@ -19,10 +20,8 @@ export const getStyledForms = () => {
     },
 
     labelText: {
-      color: theme.colors.text.medium,
-      fontSize: 14,
-      fontWeight: "500",
-      letterSpacing: 0.5,
+      color: theme.colors.text.light,
+      marginBottom: constants.spacingSX,
     },
 
     formControl: {
@@ -42,13 +41,13 @@ export const getStyledForms = () => {
     inputField: {
       // flex: 1,
       width: "100%",
-      height: 48,
+      height: 56,
 
       backgroundColor: theme.colors.default.surface,
       borderRadius: 4,
       paddingRight: 10,
       paddingLeft: 48,
-      fontSize: 15,
+      fontSize: 16,
       paddingVertical: 0,
       borderBottomWidth: 1,
       borderLeftWidth: 1,

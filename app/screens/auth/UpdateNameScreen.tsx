@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { StyleSheet, ToastAndroid, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AppButton } from "../../appComponents/buttons";
-import { AppFlatList, AppItemSeparator } from "../../appComponents/extras";
+import { AppFlatList, AppDivider } from "../../appComponents/extras";
 import {
   AppForm,
   AppFormSubmitButton,
@@ -102,8 +102,8 @@ const UpdateNameScreen: React.FC<Props> = ({ navigation }) => {
           style={{
             width: 80,
             height: 80,
-            borderWidth: isActive ? 2 : 0,
-            borderColor: "yellow",
+            borderWidth:   2,
+            borderColor:  isActive ? "yellow" : "transparent",
             borderRadius: 40,
           }}
         />
@@ -113,17 +113,18 @@ const UpdateNameScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppText variant="body1" style={{ textTransform: "uppercase" }}>
+      <AppText variant="body1" style={styles.titleText}>
         Add Profile
       </AppText>
       <AppForm methods={methods}>
-        <AppText variant="H5">Enter your profile name </AppText>
 
         <AppFormTextField
           name="displayName"
+          label="Profile Name"
           control={control}
           keyboardType={"default"}
           caretHidden={false}
+          placeholder={"Enter your name"}
           icon="account-cowboy-hat"
           autoFocus
         />
@@ -139,6 +140,7 @@ const UpdateNameScreen: React.FC<Props> = ({ navigation }) => {
         >
           <AppFlatList
             data={defaultUserAvatars?.slice(0, 9)}
+            // data={defaultUserAvatars}
             renderItem={renderItem}
             estimatedItemSize={10}
             showsHorizontalScrollIndicator={false}
@@ -147,7 +149,7 @@ const UpdateNameScreen: React.FC<Props> = ({ navigation }) => {
             contentContainerStyle={styles.flatlist}
             scrollEnabled = {false}
             ItemSeparatorComponent={() => (
-              <AppItemSeparator
+              <AppDivider
                 style={{ marginVertical: constants.spacingSX, height: 0 }}
               />
             )}
@@ -161,7 +163,7 @@ const UpdateNameScreen: React.FC<Props> = ({ navigation }) => {
           Finish Setup
         </AppFormSubmitButton>
       </AppForm>
-      <AppItemSeparator
+      <AppDivider
         style={{
           marginTop: -constants.spacingSX,
           marginBottom: constants.spacingS,
@@ -200,6 +202,10 @@ const getDynamicStyles = () => {
     },
     flatlist: {
       padding: constants.spacingM,
+    },
+    titleText: {
+      textTransform: "uppercase",
+      marginBottom: constants.spacingSX,
     },
   });
 };

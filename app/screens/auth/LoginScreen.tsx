@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { StyleSheet, ToastAndroid } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AppButton } from "../../appComponents/buttons";
-import { AppItemSeparator } from "../../appComponents/extras";
+import { AppDivider } from "../../appComponents/extras";
 import {
   AppForm,
   AppFormPasswordField,
@@ -18,7 +18,6 @@ import {
   getRefinedFirebaseAuthErrorMessage,
   useFirebaseAuthService,
 } from "../../services/firebase";
-import { useAppDispatch } from "../../store";
 import { constants } from "../../themes";
 import { LoginSchema } from "./contants";
 
@@ -28,7 +27,6 @@ interface Props {
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const styles = getDynamicStyles();
-  const dispatch = useAppDispatch();
   const { logInUser } = useFirebaseAuthService();
 
   const [userInput, setUserInput] = React.useState({
@@ -59,7 +57,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       logInUser(data.email, data.password)
         .then((res) => {
           // console.log("res", res.user.displayName);
-          if(!res.user.displayName){
+          if (!res.user.displayName) {
             navigation.navigate(ROUTES_NAMES.UPDATE_NAME);
           }
           ToastAndroid.show("User Logged In", ToastAndroid.SHORT);
@@ -90,26 +88,24 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppText variant="body1" style={{ textTransform: "uppercase" }}>
+      <AppText variant="body1" style={styles.titleText}>
         Back Again! Login{" "}
       </AppText>
       <AppForm methods={methods}>
-        <AppText variant="H5">Enter your email address </AppText>
-
         <AppFormTextField
           name="email"
+          label="Email"
           control={control}
           keyboardType={"email-address"}
           caretHidden={false}
           textContentType="emailAddress"
           autoComplete={"email"}
           icon="alternate-email"
+          placeholder={"Enter your email"}
           autoFocus
         />
-
-        <AppText variant="H5">Password </AppText>
-
         <AppFormPasswordField
+          label="Password"
           name="password"
           control={control}
           placeholder={"******"}
@@ -123,7 +119,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
           CONTINUE
         </AppFormSubmitButton>
       </AppForm>
-      <AppItemSeparator
+      <AppDivider
         style={{
           marginTop: -constants.spacingSX,
           marginBottom: constants.spacingS,
@@ -154,6 +150,9 @@ const getDynamicStyles = () => {
       paddingHorizontal: constants.spacingL,
       paddingTop: -constants.spacingM,
     },
-   
+    titleText: {
+      textTransform: "uppercase",
+      marginBottom: constants.spacingS,
+    },
   });
 };

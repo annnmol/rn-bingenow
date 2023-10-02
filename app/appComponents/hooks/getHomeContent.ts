@@ -48,29 +48,30 @@ const getHomeContent = () => {
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
+      getHomepageData();
       setRefreshing(false);
-    }, 1000);
+    }, 2000);
   }, []);
 
-  // const [apiFetchingCount, setApiFetchingCount] = React.useState(0);
+  // // const [apiFetchingCount, setApiFetchingCount] = React.useState(0);
 
-  // const navigation = useNavigation<any>();
+  // // const navigation = useNavigation<any>();
   const { getFirebase, getFileFirebase,getAllFilesFirebase } = useFirebaseDBService();
   const dispatch = useAppDispatch();
-  const { data: nowPlayingMovies, loading: nowPlayingMoviesLoading } =
-    useAppSelector(nowPlayingMoviesStore);
-  const { data: trendingAll, loading: trendingAllLoading } =
-    useAppSelector(trendingAllStore);
-  const { data: topRated, loading: topRatedLoading } =
-    useAppSelector(topRatedStore);
-  const { data: freshTv, loading: freshTvLoading } =
-    useAppSelector(freshTvStore);
-  const { data: upcomingMovies, loading: upcomingMoviesLoading } =
-    useAppSelector(upcomingMoviesStore);
-  const { data: ultimateMovies, loading: ultimateMoviesLoading } =
-    useAppSelector(ultimateMoviesStore);
-  const { data: popularMovies, loading: popularMoviesLoading } =
-    useAppSelector(popularMoviesStore);
+  // const { data: nowPlayingMovies, loading: nowPlayingMoviesLoading } =
+  //   useAppSelector(nowPlayingMoviesStore);
+  // const { data: trendingAll, loading: trendingAllLoading } =
+  //   useAppSelector(trendingAllStore);
+  // const { data: topRated, loading: topRatedLoading } =
+  //   useAppSelector(topRatedStore);
+  // const { data: freshTv, loading: freshTvLoading } =
+  //   useAppSelector(freshTvStore);
+  // const { data: upcomingMovies, loading: upcomingMoviesLoading } =
+  //   useAppSelector(upcomingMoviesStore);
+  // const { data: ultimateMovies, loading: ultimateMoviesLoading } =
+  //   useAppSelector(ultimateMoviesStore);
+  // const { data: popularMovies, loading: popularMoviesLoading } =
+  //   useAppSelector(popularMoviesStore);
 
   const getNowPlayingMovies = (pageNumber: number = 1) => {
     dispatch(setNowPlayingMoviesLoading(true));
@@ -184,18 +185,18 @@ const getHomeContent = () => {
       });
   };
 
-  React.useEffect(() => {
-    // getNowPlayingMovies();
+ const getHomepageData = () => {
+    getNowPlayingMovies();
     // getAllFilesFirebaseFn();
     // getFileFirebaseFn();
-    // getTrendingAll();
-    // getTopRatedAll();
-    // getFreshTv();
-    // getUpcomingMovies();
-    // getUltimateMovies();
-    // getPopularMovies();
+    getTrendingAll();
+    getTopRatedAll();
+    getFreshTv();
+    getUpcomingMovies();
+    getUltimateMovies();
+    getPopularMovies();
     // getSavedItems();
-  }, [refreshing]);
+  };
 
   const getSavedItems = () => {
     getFirebase(`savedMovies`)
@@ -231,10 +232,11 @@ const getHomeContent = () => {
         console.warn("err", err);
       });
   };
-// console.log("apiFetchingCount",apiFetchingCount)
+
   return {
     refreshing,
     onRefresh,
+    getHomepageData
   };
 };
 

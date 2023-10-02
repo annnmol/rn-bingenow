@@ -10,6 +10,8 @@ import { useTheme } from "@react-navigation/native";
 import { AppAvatar } from "../appComponents/images";
 import { useAppSelector } from "../store";
 import { authUserStore } from "../store/slices/AuthUserSlice";
+import { getHomeContent } from "../appComponents/hooks";
+import React from "react";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,6 +20,13 @@ const TabsNavigator = () => {
   const styles = getDynamicStyles();
   const { authUser } = useAppSelector(authUserStore);
   const tabUserAvatarIcon = authUser?.photoURL ?? require("..//assets/avatars/avatar4.webp"); 
+
+
+  const { getHomepageData } = getHomeContent();
+
+  React.useEffect(() => {
+    getHomepageData();
+  }, []);
 
   return (
     <Tab.Navigator
